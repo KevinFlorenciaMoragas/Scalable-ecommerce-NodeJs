@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  pubsub:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - '6379:6379'
+    command: redis-server --requirepass password 
+    volumes: 
+      - cache:/data
+
+volumes:
+  cache:
+    driver: local

@@ -1,0 +1,14 @@
+{
+  "devDependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "js-cookie": "^3.0.5",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.11.4",
+    "uuid": "^11.0.3"
+  },
+  "dependencies": {
+    "sequelize": "^6.37.5"
+  }
+}
