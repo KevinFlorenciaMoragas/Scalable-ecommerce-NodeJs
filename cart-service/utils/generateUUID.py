@@ -1,5 +1,6 @@
 import uuid
 
-def generateUUID():
-    return str(uuid.uuid4())
 
+def generateUUID():
+    # Retorna un UUID válido en formato string
+    return str(uuid.uuid4())

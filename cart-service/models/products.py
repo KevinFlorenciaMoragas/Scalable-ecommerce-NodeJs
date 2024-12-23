@@ -1,21 +1,19 @@
-from sqlalchemy import Column, String, DateTime, ForeignKey
+from sqlalchemy import Column, String, Integer, DateTime
 from sqlalchemy.orm import relationship
 from database.database import Base
 from utils.generateUUID import generateUUID
 import datetime
 
-class Cart(Base):
-    __tablename__ = "cart"
+class Products(Base):
+    __tablename__ = "products"
 
     id = Column(String(36), primary_key=True, index=True, default=generateUUID)
-    user_id = Column(String(36), ForeignKey("users.id"), unique=False) 
-    state = Column(String(20), nullable=False)
+    product_id = Column(Integer,unique=True, nullable=False)
     created_at = Column(DateTime, default=datetime.datetime.now)
     updated_at = Column(DateTime, default=datetime.datetime.now)
 
-    products = relationship(
-        "Products",
+    carts = relationship(
+        "Cart",
         secondary="cart_product_association",
-        back_populates="carts"
+        back_populates="products"
     )
-    user = relationship("Users", back_populates="cart")

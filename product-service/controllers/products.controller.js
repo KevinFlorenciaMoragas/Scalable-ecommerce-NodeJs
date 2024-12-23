@@ -1,3 +1,4 @@
+const { publishEvent } = require('../../user-service/pubsub');
 const Product = require('../models/products.model');
 
 const getProducts = async (req, res) => {
@@ -27,6 +28,8 @@ const createProduct = async (req, res) => {
             return res.status(400).json({error: 'Name, description, price, stock and categoryId are required'});
         }
         const product = await Product.create(req.body);
+        console.log(product.dataValues.id)
+        publishEvent('product:created', 'product', { product_id: product.dataValues.id });
         return res.status(201).json(product);
     } catch (error) {
         return res.status(500).json({error: error.message});
@@ -54,7 +57,8 @@ const deleteProduct = async (req, res) => {
             where: { id: id }
         });
         if (deleted) {
-            return res.status(204).send("Product deleted");
+            publishEvent('product:deleted', 'product', { product_id: id });
+            return res.status(204).json({message: 'Product deleted'});
         }
         throw new Error("Product not found");
     } catch (error) {
